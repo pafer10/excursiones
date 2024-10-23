@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Excursiones</title>
+</head>
+<body>
+    <div class="header-box">
+        <h1>Excursiones</h1>
+    </div>
+    <div class="header-box">
+        <h2>Para añadir una excursión pulsa <a th:href="@{/excursion/alta}">aquí</a></h2>
+    </div>
+
+    <h3 class="text-center"><span th:text="${mensaje}"></span></h3>
+    
+    <table class="table table-striped custom-table mx-auto mt-3" style="max-width: 400px;">
+        <thead>
+            <tr>
+                <th scope="col"><a th:href="@{excursion/cancelados}" class="text-decoration-none text-white">Cancelados</a></th>
+                <th scope="col"><a th:href="@{excursion/creados}" class="text-decoration-none text-white">Creados</a></th>
+                <th scope="col"><a th:href="@{excursion/terminados}" class="text-decoration-none text-white">Terminados</a></th>
+                <th scope="col"><a th:href="@{excursion/destacados}" class="text-decoration-none text-white">Destacados</a></th>
+            </tr>
+        </thead>
+    </table>
+
+    <table class="table table-striped custom-table mx-auto mt-3">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Fecha</th>
+                <th>Precio</th>
+                <th>Detalle</th>
+                <th>Cancelar</th>
+                <th>Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ele: ${excursiones}">
+                <td th:text="${ele.descripcion}"></td>
+                <td th:text="${ele.origen}"></td>
+                <td th:text="${ele.destino}"></td>
+                <td th:text="${#dates.format(ele.fechaExcursion, 'dd-MM-yyyy')}"></td>
+                <td th:text="${ele.precioUnitario}"></td>
+                <td><a th:href="@{/excursion/detalle/{id}(id=${ele.idExcursion})}">Detalle</a></td>
+                <td><a th:href="@{/excursion/cancelar/{id}(id=${ele.idExcursion})}">Cancelar</a></td>
+                <td><a th:href="@{/excursion/modificar/{id}(id=${ele.idExcursion})}">Modificar</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <style>
+        .custom-table {
+            width: 50%; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 50px auto; 
+        }
+
+        .custom-table th {
+            background-color: #007bff; 
+            color: white; 
+            padding: 10px;
+            text-align: center;
+        }
+
+        .custom-table td {
+            padding: 10px;
+            text-align: center;
+            background-color: #e7f3ff; 
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #e1f5fe; 
+        }
+
+        .header-box {
+            background-color: #f8f9fa; 
+            border: 1px solid #007bff; 
+            border-radius: 10px; 
+            padding: 15px; 
+            text-align: center; 
+            margin: 20px auto; 
+            width: 60%; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
